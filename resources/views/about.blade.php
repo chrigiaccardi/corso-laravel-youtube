@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-@include('partials.head', ['pageTitle' => 'About', 'metaTitle' => 'About Laravel'])
-<body>
-     @include('partials.menu')
+@extends('layouts.app')
 
-<h1>About</h1>
-    
-</body>
-</html>
+@section('content')
+<p>Questa Pagina About è stata creata dinamicamente</p>
+@endsection

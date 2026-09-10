@@ -9,10 +9,17 @@ Route::get('/', function () {
 
 
 Route::get('/home', function () {
-    return view('home');
+    return view('home', [
+        'pageTitle' => 'home',
+        'metaTitle' => 'home metadati dinamici'
+    ]);
 });
 Route::get('/about', function () {
-    return view('about');
+    return view('about', [
+        'pageTitle' => 'About',
+        'metaTitle' => 'About metadati dinamici'
+    ]);
 });
 Route::get('/prova', [provaController::class, 'provaFunction']);
 Route::post('/prova', [provaController::class, 'provaData']);
+Route::get('/profile', [provaController::class, 'show'])->name('profile');

@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-@include('partials.head', ['pageTitle' => 'Home', 'metaTitle' => 'Home del sito Laravel'])
-<body>
-   @include('partials.menu')
+@extends('layouts.app')
 
-    <h1>Homepage</h1>
-</body>
-</html>
+@section('content')
+<p>Questa Home è stata creata dinamicamente</p>
+@endsection
