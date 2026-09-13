@@ -10,6 +10,9 @@
 <body>
     <h1>Post Creato con successo</h1>
     <p>È stato creato un nuovo post con ID {{$post->id}}</p>
+    <hr>
+    <h2>{{$post->title}}</h2>
+    <p>{{$post->content}}</p>
 </body>
 
 </html>

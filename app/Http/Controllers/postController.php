@@ -19,10 +19,7 @@ class postController extends Controller
     public function creazionePost(): View
     {
         // Creare un nuovo post con dati fittizzi
-        $post = Post::create([
-            'title' => 'Altro post'
-        ]);
-
+        $post = Post::factory()->create();
         // Mostra un messaggio di conferma con l'ID del post creato
         return view('posts.create', ['post' => $post]);
     }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\postController;
+use App\Http\Controllers\profileController;
 use App\Http\Controllers\provaController;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
@@ -13,7 +14,7 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('home', [
         'pageTitle' => 'home',
-        'metaTitle' => 'home metadati dinamici'
+        'metaTitle' => 'home metadati dinamici',
     ]);
 });
 Route::get('/about', function () {
@@ -24,7 +25,8 @@ Route::get('/about', function () {
 });
 Route::get('/prova', [provaController::class, 'provaFunction']);
 Route::post('/prova', [provaController::class, 'provaData']);
-Route::get('/profile', [provaController::class, 'show'])->name('profile');
+Route::get('/profile', [profileController::class, 'creaUtente'])->name('newProfile');
+Route::get('/profile/unverified', [profileController::class, 'creaUtenteNonVerificato'])->name('utenteNonVerificato');
 
 // Recupero e Visualizzazione Post
 Route::get('/posts', [postController::class, 'recuperoPost'])->name('posts.index');
