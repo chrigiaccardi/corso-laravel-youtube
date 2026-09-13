@@ -34,3 +34,5 @@ Route::get('/posts', [postController::class, 'recuperoPost'])->name('posts.index
 Route::get('/posts/create', [postController::class, 'creazionePost'])->name('posts.create');
 // Cancellazione Post
 Route::get('/posts/delete/{id}', [postController::class, 'cancellazionePost'])->name('posts.delete');
+// Recupero di un post dedicato
+Route::get('/posts/{$id}', [postController::class, 'postGetById'])->name('postGetById');

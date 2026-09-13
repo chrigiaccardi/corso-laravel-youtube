@@ -39,4 +39,11 @@ class postController extends Controller
         // Mostra un messaggio di conferma dell'eliminazione
         return view('posts.delete', ['message' => $message]);
     }
+
+    public function postGetById(int $id):View {
+        // Ricerca il post con l'id indicato in ingresso
+        $post = Post::findorfail($id);
+        // Ritorna la view con i dettagli del post indicato
+        return view('posts.show', ['post' => $post]);
+    }
 }
