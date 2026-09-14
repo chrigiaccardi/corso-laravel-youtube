@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class postController extends Controller
@@ -24,26 +25,36 @@ class postController extends Controller
         return view('posts.create', ['post' => $post]);
     }
 
-    public function cancellazionePost(int $id): View
+    public function cancellazionePost(Post $post)
     {
-        // Recupera ed elimina con l'id specificato
-        $post = Post::find($id);
-
-        if ($post) {
-            $post->delete();
-            $message = "Il post con ID $id è stato cancellato";
-        } else {
-            $message = "Il post con ID $id non è stato trovato";
-        }
+        // Recupera il post con l'id specificato / Oppure passiamo direttamente il post come modello post
+        // $post = Post::find($id);
+        
+        // Elimina il post specificato
+        $post->delete();
 
         // Mostra un messaggio di conferma dell'eliminazione
-        return view('posts.delete', ['message' => $message]);
+        return redirect()->route('posts.index')->with('success', 'Post eliminato con successo');
     }
 
-    public function postGetById(int $id):View {
-        // Ricerca il post con l'id indicato in ingresso
-        $post = Post::findorfail($id);
+    public function postGetById(Post $post):View {
+        // Ricerca il post con l'id indicato in ingresso / Oppure passiamo direttamente il post come modello post
+        // $post = Post::findOrFail($id);
+
         // Ritorna la view con i dettagli del post indicato
         return view('posts.show', ['post' => $post]);
+    }
+
+    public function modificaPostById(Request $request, Post $post){
+        // Ricerchiamo il Post giusto con l'ID / Oppure passiamo direttamente il post come modello post
+        // $post = Post::findOrFail($id);
+
+        // Prendiamo le modifiche e le salviamo
+        $post->title = $request->input('title');
+        $post->content = $request->input('content');
+        $post->save();
+
+        // Ritorniamo il post dedicato con il successo
+        return redirect()->route('posts.show', ['id' => $post->id])->with('success', 'Post aggiornato con successo');
     }
 }

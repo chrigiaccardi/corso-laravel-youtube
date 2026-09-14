@@ -33,6 +33,8 @@ Route::get('/posts', [postController::class, 'recuperoPost'])->name('posts.index
 // Creazione Post
 Route::get('/posts/create', [postController::class, 'creazionePost'])->name('posts.create');
 // Cancellazione Post
-Route::get('/posts/delete/{id}', [postController::class, 'cancellazionePost'])->name('posts.delete');
+Route::delete('/posts/{post}', [postController::class, 'cancellazionePost'])->where('id', '[0-9]+')->name('posts.delete');
 // Recupero di un post dedicato
-Route::get('/posts/{$id}', [postController::class, 'postGetById'])->name('postGetById');
+Route::get('/posts/{post}', [postController::class, 'postGetById'])->where('id', '[0-9]+')->name('postGetById');
+// Modifica Post By Id
+Route::put('/post/{post}', [postController::class, 'modificaPostById'])->where('id', '[0-9]+')->name('modificaPostById');

@@ -10,8 +10,9 @@
         <h1>{{$post->title}}</h1>
         <p>Creato il : {{$post->created_at->format('d-m-y H:i')}}</p>
         <div class="">
-            <p>{{post->content}}</p>
+            <p>{{$post->content}}</p>
         </div>
+        <a href="{{route('posts.index')}}">Torna alla lista Post</a>
     </div>
 </body>
 </html>
