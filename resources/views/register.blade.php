@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,7 @@
 <body>
     <div class="container mt-5">
         <h1>Registrazione Utente</h1>
-        <!-- Se la sessione è stata creata -->
+        <!-- Se la sessione è stata creata con successo inserisce il messaggio di successo-->
         @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -18,7 +19,7 @@
         @endif
 
         <!-- Se sono presenti degli errori allora lista errori -->
-        @if (errors->any())
+        @if ( $errors->any() )
         <div class="alert alert-danger">
             <ul>
                 @foreach($errors-all() as $error)
@@ -28,7 +29,7 @@
         </div>
         @endif
 
-        <form action="{{ route('registerUser' }}" method="post">
+        <form action="{{ route('registerUser') }}" method="post">
             <!-- La direttiva Cross-Site Request Forgery protegge i form da attacchi che utilizzano la sessione aperta
              dell'utente per mandare richieste di modifica (Come modifica mail ecc.)  -->
             @csrf
