@@ -4,8 +4,8 @@
 
 <body>
     @include('partials.menu')
-    <h1>{{$pageTitle}}</h1>
-    <div class="">
+    <div class="container mt-5">
+        <h1>{{$pageTitle}}</h1>
         @yield('content')
     </div>
 

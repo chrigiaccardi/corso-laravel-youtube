@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::get('/home', function () {
     return view('home', [
-        'pageTitle' => 'home',
+        'pageTitle' => 'Homepage',
         'metaTitle' => 'home metadati dinamici'
     ]);
 })->name('home');

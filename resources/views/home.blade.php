@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mt-5">
     <p>Questa Home è stata creata dinamicamente</p>
 
     <!-- Se la sessione è stata creata con successo inserisce il messaggio di successo-->
@@ -20,6 +19,5 @@
     @else
     <a href="{{route('showLoginForm')}}" class="btn btn-primary">Login</a>
     @endauth
-</div>
 
 @endsection
