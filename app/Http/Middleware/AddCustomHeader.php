@@ -13,11 +13,11 @@ class AddCustomHeader
      *
      * @param  Closure(Request): (Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, string $headerPersonalizzato): Response
     {
         $response = $next($request);
 
-        $response->headers->set('X-custom-header', 'provaaaaaa');
+        $response->headers->set('X-custom-header', $headerPersonalizzato);
 
         return $response;
     }

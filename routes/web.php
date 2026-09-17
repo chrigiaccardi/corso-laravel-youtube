@@ -3,8 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\postController;
 use App\Http\Controllers\provaController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValidationController;
+use App\Http\Middleware\AddCustomHeader;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,14 +20,14 @@ Route::get('/home', function () {
         'pageTitle' => 'Homepage',
         'metaTitle' => 'home metadati dinamici'
     ]);
-})->name('home');
+})->name('home')->middleware(AddCustomHeader::class . ':parametroPersonalizzato');
 
 Route::get('/about', function () {
     return view('about', [
         'pageTitle' => 'About',
         'metaTitle' => 'About metadati dinamici'
     ]);
-});
+})->middleware('auth');
 Route::get('/prova', [provaController::class, 'provaFunction']);
 Route::post('/prova', [provaController::class, 'provaData']);
 Route::get('/profile', [provaController::class, 'show'])->name('profile');
@@ -42,11 +42,11 @@ Route::get('/posts/delete/{id}', [postController::class, 'cancellazionePost'])->
 Route::post('/form', [ValidationController::class, 'validateForm'])->name('validateForm');
 
 // Route di registrazione
-Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('showRegistrationForm');
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('showRegistrationForm')->middleware(AddCustomHeader::class);
 Route::post('/register', [AuthController::class, 'registerUser'])->name('registerUser');
 
 // Route per il login
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('showLoginForm');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'loginUser'])->name('loginUser');
 // Route per il Logout
 Route::post('/logout', [AuthController::class, 'logoutUser'])->name('logoutUser');
