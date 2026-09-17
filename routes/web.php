@@ -22,15 +22,15 @@ Route::get('/home', function () {
     // $job->handle();
 
     // La Job viene messa in coda nella Tab. Jobs
-    SimpleJob::dispatch('Messaggio dispatch');
+    // SimpleJob::dispatch('Messaggio dispatch');
     // La Job viene messa in coda ma con un delay, disponibilità ritardata
-    SimpleJob::dispatch('Messaggio dispatch in delay e ritardato')->delay(now()->addMinutes(5));
+    SimpleJob::dispatch('Messaggio 1 minuto')->delay(now()->addMinutes(1));
 
     return view('home', [
         'pageTitle' => 'Homepage',
         'metaTitle' => 'home metadati dinamici'
     ]);
-})->name('home')->middleware(AddCustomHeader::class . ':parametroPersonalizzato');
+})->name('home');
 
 Route::get('/about', function () {
     return view('about', [
@@ -52,7 +52,7 @@ Route::get('/posts/delete/{id}', [postController::class, 'cancellazionePost'])->
 Route::post('/form', [ValidationController::class, 'validateForm'])->name('validateForm');
 
 // Route di registrazione
-Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('showRegistrationForm')->middleware(AddCustomHeader::class);
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('showRegistrationForm');
 Route::post('/register', [AuthController::class, 'registerUser'])->name('registerUser');
 
 // Route per il login
