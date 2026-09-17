@@ -5,6 +5,7 @@ use App\Http\Controllers\postController;
 use App\Http\Controllers\provaController;
 use App\Http\Controllers\ValidationController;
 use App\Http\Middleware\AddCustomHeader;
+use App\Jobs\SimpleJob;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,6 +17,15 @@ Route::get('/', function () {
 
 
 Route::get('/home', function () {
+    // La job viene eseguita subito
+    // $job = new SimpleJob('Nuovo Log 2.0');
+    // $job->handle();
+
+    // La Job viene messa in coda nella Tab. Jobs
+    SimpleJob::dispatch('Messaggio dispatch');
+    // La Job viene messa in coda ma con un delay, disponibilità ritardata
+    SimpleJob::dispatch('Messaggio dispatch in delay e ritardato')->delay(now()->addMinutes(5));
+
     return view('home', [
         'pageTitle' => 'Homepage',
         'metaTitle' => 'home metadati dinamici'
