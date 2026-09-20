@@ -9,41 +9,44 @@
 </head>
 
 <body>
-    <h1>Login Utente</h1>
-    <!-- Se la sessione è stata creata con successo inserisce il messaggio di successo-->
-    @if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-    @endif
-
-    <!-- Se sono presenti degli errori allora lista errori -->
-    @if ( $errors->any() )
-    <div class="alert alert-danger">
-        <ul>
-            @foreach($errors-all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
-
-    <form action="{{ route('loginUser') }}" method="post">
-        @csrf
-
-        <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" require>
+    <div class="container mt-5">
+        <h1>Login Utente</h1>
+        <!-- Se la sessione è stata creata con successo inserisce il messaggio di successo-->
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
         </div>
+        @endif
 
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" name="password" require>
+        <!-- Se sono presenti degli errori allora lista errori -->
+        @if ( $errors->any() )
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors-all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
+        @endif
 
-        <button type="submit" class="btn btn-primary">Login</button>
+        <form action="{{ route('loginUser') }}" method="post">
+            @csrf
 
-    </form>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" require>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" require>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Login</button>
+
+        </form>
+    </div>
+
 
 </body>
 

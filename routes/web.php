@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\postController;
+use App\Http\Controllers\profileController;
 use App\Http\Controllers\provaController;
 use App\Http\Controllers\ValidationController;
 use App\Http\Middleware\AddCustomHeader;
@@ -50,6 +51,9 @@ Route::get('/posts/create', [postController::class, 'creazionePost'])->name('pos
 Route::get('/posts/delete/{id}', [postController::class, 'cancellazionePost'])->name('posts.delete');
 // Validazione del Form
 Route::post('/form', [ValidationController::class, 'validateForm'])->name('validateForm');
+
+// Caricamento Immagine Avatar
+Route::post('/upload-image', [profileController::class, 'uploadImage'])->name('upload.image');
 
 // Route di registrazione
 Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('showRegistrationForm');
