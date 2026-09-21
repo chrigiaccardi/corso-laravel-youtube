@@ -57,4 +57,21 @@ class postController extends Controller
         // Ritorniamo il post dedicato con il successo
         return redirect()->route('posts.show', ['id' => $post->id])->with('success', 'Post aggiornato con successo');
     }
+
+    // Rest API: Funzione Index per ritornare in formato json la risposta di tutti i post con 200 come status OK
+    public function index(){
+        return response()->json(Post::all(), 200);
+    }
+    // Rest API: Funzione Show per ritornare in formato json solo 1 post tramite id
+    public function show($id){
+        // Troviamo il post tramite ID
+        $post = Post::find($id);
+        // SE lo trova lo ritorna in json, altrimenti ritorna il messaggio di non trovato con errore 404
+        if ($post) {
+            return response()->json($post, 200);
+        } else {
+            return response()->json(['message' => 'Post Non Trovato', 404]);
+        }
+        
+    }
 }
