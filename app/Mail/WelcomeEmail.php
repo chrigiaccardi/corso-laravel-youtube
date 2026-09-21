@@ -15,12 +15,13 @@ use Illuminate\Queue\SerializesModels;
 class WelcomeEmail extends Mailable
 {
     use Queueable, SerializesModels;
-    public User $user;
+
 
     /**
      * Create a new message instance.
      */
-    public function __construct(User $user)
+    // Nel Costruct possiamo direttamente inserire la variabile che vogliamo in ingresso
+    public function __construct(public User $user)
     {
         $this->user = $user;
     }
@@ -31,7 +32,6 @@ class WelcomeEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('provaaa@corso_laravel_ita.iom', 'Christian Giaccardi'),
             subject: 'Welcome Email',
         );
     }
