@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\View\View;
 
 class postController extends Controller
@@ -74,4 +75,54 @@ class postController extends Controller
         }
         
     }
+    // Rest API: Funzione Store per inserire un elemento
+    public function store(Request $request){
+        // Validiamo la richiesta
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'user_id' => 'required|exists:users,id'
+        ]);
+        // Creiamo il post con i dati arrivati dalla richiesta
+        $post = Post::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'user_id' => $request->user_id,
+        ]);
+        // Ritorniamo la risposta con l'inserimento del post e 201 di conferma
+        return response()->json($post, 201);
+    }
+    // Rest API: Funzione Update per aggiornare e modificare un post già esistente
+    public function update(Request $request, $id){
+        // Ricerchiamo il post
+        $post = Post::find($id);
+        // Se il post esiste lo validiamo e andiamo ad aggiornarlo
+        if ($post) {
+            // Validazione
+            $request->validate([
+                'title' => 'sometimes|required|string|max:255',
+                'content' => 'sometimes|required|string',
+            ]);
+            // Aggiornamento
+            $post->update($request->only(['title', 'content']));
+            // Ritorniamo il post json con 200 OK
+            return response()->json($post, 200);
+        } else {
+            // Se non trovato ritorniamo il messaggio
+            return response()->json(['message' => 'Post non Trovato', 404]);
+        }
+    }
+    // Rest API: Funzione Destroy per cancellare un post specifico
+    public function destroy ($id){
+        // Troviamo il post
+        $post = Post::find($id);
+        // Se il post elimino e ritorno il messaggio di conferma 200;
+        if ($post) {
+            $post->delete();
+            return response()->json(['message' => 'Post Cancellato'], 200);
+        } else {
+            return response()->json(['message' => 'Post non trovato'], 404);
+        }
+        
+    } 
 }
